@@ -1,22 +1,33 @@
 import { Button } from '@chakra-ui/button';
-import { Code, Heading, Text } from '@chakra-ui/layout';
+import { Flex, Heading } from '@chakra-ui/react';
 import { useAuth } from '@/lib/auth';
+import { LogoIconCustom } from '@/styles/CustomIcons';
+import EmptyState from '@/components/EmptyState';
 
 const IndexPage = () => {
   const auth = useAuth();
+  // return <EmptyState />
   return (
-    <main>
-      <Heading>Fast Feedback</Heading>
-      <Text>
-        Current user: <Code>{auth?.user?.email}</Code>{' '}
-      </Text>
-
+    <Flex
+      as="main"
+      direction="column"
+      align="center"
+      justify="center"
+      justifyContent="center"
+      h="100%"
+      m={'auto'}
+    >
+      <LogoIconCustom color="black" boxSize={65} />
       {auth?.user ? (
-        <Button onClick={() => auth.signout()}>Sign Out</Button>
+        <Button mt={4} size="sm" onClick={() => auth.signout()}>
+          Sign Out
+        </Button>
       ) : (
-        <Button onClick={() => auth.signinWithGithub()}>Sign In</Button>
+        <Button mt={4} size="sm" onClick={() => auth.signinWithGithub()}>
+          Sign In
+        </Button>
       )}
-    </main>
+    </Flex>
   );
 };
 

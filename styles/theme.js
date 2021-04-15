@@ -12,6 +12,10 @@ export const styles = {
   global: {
     html: {
       scrollBehavior: 'smooth',
+      minHeight: '100vh',
+    },
+    body: {
+      minHeight: '100vh',
     },
     '#__next': {
       display: 'flex',
@@ -20,4 +24,3 @@ export const styles = {
     },
   },
 };
-
