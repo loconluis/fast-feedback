@@ -1,8 +1,8 @@
 import { Button } from '@chakra-ui/button';
-import { Flex, Heading } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { useAuth } from '@/lib/auth';
 import { LogoIconCustom } from '@/styles/CustomIcons';
-import EmptyState from '@/components/EmptyState';
+import Link from 'next/link';
 
 const IndexPage = () => {
   const auth = useAuth();
@@ -19,9 +19,11 @@ const IndexPage = () => {
     >
       <LogoIconCustom color="black" boxSize={65} />
       {auth?.user ? (
-        <Button mt={4} size="sm" onClick={() => auth.signout()}>
-          Sign Out
-        </Button>
+        <Link href="/dashboard">
+          <Button mt={4} size="sm">
+            View Dashboard
+          </Button>
+        </Link>
       ) : (
         <Button mt={4} size="sm" onClick={() => auth.signinWithGithub()}>
           Sign In

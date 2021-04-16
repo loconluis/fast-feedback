@@ -1,24 +1,27 @@
-import React from 'react';
+import Router from 'next/router';
 import {
-  ChakraProvider,
   Flex,
   Link,
   Stack,
-  Icon,
   Avatar,
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   Heading,
-  Box,
-  Text,
   Button,
 } from '@chakra-ui/react';
 import { LogoIconCustom } from '@/styles/CustomIcons';
 import { useAuth } from '@/lib/auth';
+import AddSiteModal from './AddSiteModal';
 
 const DashboardShell = ({ children }) => {
   const auth = useAuth();
+  const { signout } = auth;
+
+  const onSignOut = () => {
+    signout();
+    Router.push('/');
+  };
 
   return (
     <Flex flexDirection="column" alignItems="stretch" height="100vh">
@@ -39,23 +42,34 @@ const DashboardShell = ({ children }) => {
             p={0}
             color={'black'}
           />
-          <Link>Feedback</Link>
           <Link>Sites</Link>
+          <Link>Feedback</Link>
         </Stack>
         <Flex alignItems="center">
-          <Link mr={4} backgroundColor="whiteAlpha.500">
-            Account
-          </Link>
+          <Button
+            color="black"
+            _hover={{
+              textDecor: 'underline',
+              color: 'black',
+            }}
+            variant="link"
+            fontWeight="normal"
+            mr={4}
+            backgroundColor="whiteAlpha.500"
+            onClick={onSignOut}
+          >
+            Log Out
+          </Button>
           <Avatar size="sm" src={auth?.user?.photoURL} />
         </Flex>
       </Flex>
       <Flex backgroundColor="gray.100" p={8} height="100vh">
         <Flex
-          maxWidth={'900px'}
-          w="100%"
-          ml="auto"
-          mr="auto"
+          maxWidth={'1250px'}
+          width="100%"
+          margin="0 auto"
           direction="column"
+          px={8}
         >
           <Breadcrumb>
             <BreadcrumbItem isCurrentPage>
@@ -64,7 +78,10 @@ const DashboardShell = ({ children }) => {
               </BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
-          <Heading mb={4}>Sites</Heading>
+          <Flex justifyContent="space-between">
+            <Heading mb={4}> My Sites</Heading>
+            <AddSiteModal>+ Add Site</AddSiteModal>
+          </Flex>
           {children}
         </Flex>
       </Flex>
